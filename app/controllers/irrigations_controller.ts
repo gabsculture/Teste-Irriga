@@ -1,6 +1,7 @@
 import Irrigation from "#models/irrigation"
 import Pivot from "#models/pivot"
 import User from "#models/user"
+import { TransferIrrigationValidator } from "#validators/transfer_irrigation"
 import { HttpContext } from "@adonisjs/core/http"
 
 export default class IrrigationsController {
@@ -124,15 +125,8 @@ export default class IrrigationsController {
         }
     }
 
-    // transfere uma lista de irrigações de um pivot para outro
-    // caso não seja informada a lista, transfere todas
-    // então para usar essa função é só passar o id do pivot de origem, o id de destino e opcionalmente a lista de ids de irrigaçao
     public async transfer({ request, response, auth }: HttpContext) {
-        const body = request.only([
-            'sourcePivotId',
-            'targetPivotId',
-            'irrigationIds',
-        ])
+        const body = await request.validateUsing(TransferIrrigationValidator)
         const userId = auth.user!.id
         try {
             const sourcePivot = await Pivot
@@ -155,9 +149,7 @@ export default class IrrigationsController {
             if (body.irrigationIds && body.irrigationIds.length > 0) {
                 irrigationsQuery = irrigationsQuery.whereIn('id', body.irrigationIds)
             }
-            if(body.irrigationIds.length === 0) {
-                  return response.badRequest({ message: 'Invalid format!' })
-            }
+
             const irrigations = await irrigationsQuery
 
             for (const irrigation of irrigations) {
