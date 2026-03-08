@@ -72,15 +72,16 @@ export default class PivotsController {
                 .where('id', params.id)
                 .where('user_id', userId)
                 .firstOrFail()
+                
+        return response.status(200).json({
+            pivot,
+        })
         } catch (error) {
             return response.status(404).json({
                 message: 'Pivot not found',
             })
         }
 
-        return response.status(200).json({
-            pivot,
-        })
     }
 
     public async update({ params, request, response, auth }: HttpContext) {
