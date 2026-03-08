@@ -155,7 +155,7 @@ export default class IrrigationsController {
             if (body.irrigationIds && body.irrigationIds.length > 0) {
                 irrigationsQuery = irrigationsQuery.whereIn('id', body.irrigationIds)
             }
-            if(body.irrigationIds == null) {
+            if(body.irrigationIds.length === 0) {
                   return response.badRequest({ message: 'Invalid format!' })
             }
             const irrigations = await irrigationsQuery
