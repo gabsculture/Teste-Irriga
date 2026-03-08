@@ -1,11 +1,4 @@
 ## **Desafio: API de Gerenciamento de Irrigação**
 Este desafio tem como objetivo avaliar as habilidades práticas do candidato em Node.js, focando na construção de uma API RESTful com autenticação JWT. 
-O projeto consiste em dois módulos principais: cadastro de pivôs de irrigação e registro de irrigações aplicadas.
+O projeto consiste em dois módulos principais: cadastro de pivôs de irrigação e registro de irrigações aplicadas. Para o desenvolvimento deste desafio estou usando o framework Adonisjs
 
-### **Configuração do ambiente**
-Para rodar o projeto é necessário realizar os seguintes passos:
-1. 
-2.
-3.
-4.
-5.
