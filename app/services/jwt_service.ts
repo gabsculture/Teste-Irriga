@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken'
   export default class JwtService {
     public static sign(payload: JwtPayload) {
       return jwt.sign(payload, JWT_SECRET, {
-        expiresIn: '1h',
+        expiresIn: '7d',
       })
     }
   }
