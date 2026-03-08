@@ -126,6 +126,7 @@ export default class IrrigationsController {
 
     // transfere uma lista de irrigações de um pivot para outro
     // caso não seja informada a lista, transfere todas
+    // então para usar essa função é só passar o id do pivot de origem, o id de destino e opcionalmente a lista de ids de irrigaçao
     public async transfer({ request, response, auth }: HttpContext) {
         const body = request.only([
             'sourcePivotId',
@@ -154,7 +155,9 @@ export default class IrrigationsController {
             if (body.irrigationIds && body.irrigationIds.length > 0) {
                 irrigationsQuery = irrigationsQuery.whereIn('id', body.irrigationIds)
             }
-
+            if(body.irrigationIds == null) {
+                  return response.badRequest({ message: 'Invalid format!' })
+            }
             const irrigations = await irrigationsQuery
 
             for (const irrigation of irrigations) {
